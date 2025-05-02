@@ -1,0 +1,55 @@
+# .github/workflows/build.yml
+name: Android CI Build
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main/master branch
+  push:
+    branches: [ "master" ] # Adjust if your main branch has a different name
+  pull_request:
+    branches: [ "master" ] # Adjust if your main branch has a different name
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout code
+        uses: actions/checkout@v4 # Use the latest version
+
+      # Set up JDK (Java Development Kit) required for Android builds
+      # Check your project's required JDK version (e.g., in build.gradle or Android Studio settings)
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17' # Or '11', '21', etc., depending on your project needs
+          distribution: 'temurin' # Or 'zulu', 'adopt', etc.
+          cache: gradle
+
+      # Grant execution permission to the gradlew script
+      # This is necessary for Linux/macOS runners
+      - name: Grant gradlew permissions
+        run: chmod +x ./gradlew
+
+      # Run the assembleDebug build task using Gradle Wrapper
+      # This builds the debug version of your app but doesn't run tests
+      # Use './gradlew build' to run both build and unit tests
+      # Use './gradlew assembleRelease' for a release build (requires signing setup)
+      - name: Build with Gradle
+        run: ./gradlew assembleDebug # Or ./gradlew build for tests too
+
+      # Optional: Upload the built APK as an artifact
+      # This allows you to download the APK from the Actions run summary
+      # - name: Upload Debug APK
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: app-debug-apk # Name of the artifact
+      #     path: app/build/outputs/apk/debug/app-debug.apk # Path to the APK file

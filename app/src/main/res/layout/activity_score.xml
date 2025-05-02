@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="@drawable/back2"
+    tools:context=".ScoreActivity">
+
+    <TextView
+        android:id="@+id/score_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/white"
+        android:layout_marginBottom="16dp"
+        tools:text="Your Score: 4 / 5" />
+
+    <TextView
+        android:id="@+id/score_feedback_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:layout_marginBottom="32dp"
+        tools:text="Great job!" />
+
+    <Button
+        android:id="@+id/review_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Review Answers" />
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Exit App" />
+
+    <ScrollView
+        android:id="@+id/review_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/review_content_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="@color/white"
+            android:textIsSelectable="true"
+            android:textSize="16sp" />
+    </ScrollView>
+
+
+</LinearLayout>
